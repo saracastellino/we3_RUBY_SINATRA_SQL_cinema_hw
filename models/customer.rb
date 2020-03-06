@@ -1,5 +1,6 @@
 require_relative("../db/sql_runner")
 
+
 class Customer
 
   attr_reader :id
@@ -58,10 +59,27 @@ class Customer
   end
 
   def funds_left
-    tickets = self.tickets
-    film_price = films.map{|film| film.price}
-    combined_sum = film_price.sum
-    return @funds - combined_sum
+    films = self.films
+    film_price = films.map{|film| film.price.to_i}
+    total_price = film_price.sum
+    return @funds -= total_price
   end
 
+  # movie_found = Casting.get_movie_by_id(@movie_id)
+  #   # binding.pry
+  #   if(movie_found.budget >= @fee)
+  #     movie_found.budget -= @fee
+  #   else
+  #     p "Sorry, out of budget"
+  #   end
+  #   movie1.update
+  #
+  #
+  #
+  #   def remaining_budget()
+  #     castings = self.castings()
+  #     casting_fees = castings.map{|casting| casting.fee}
+  #     combined_fees = casting_fees.sum
+  #     return @budget - combined_fees
+  #   end
 end

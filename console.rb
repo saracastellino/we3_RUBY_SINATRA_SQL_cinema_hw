@@ -46,6 +46,7 @@ ticket2.update
 
 Ticket.delete(37)
 
+customer1.funds_left
 
 binding.pry
 nil
