@@ -1,5 +1,5 @@
 require_relative("../db/sql_runner")
-
+# create class variable ticketcount and in initialize only if ticketcount = tickets.length && ticketcount =< 10
 class Ticket
 
   attr_reader :id
@@ -9,11 +9,12 @@ class Ticket
     @id = tickets['id'].to_i if tickets['id']
     @customer_id = tickets['customer_id'].to_i
     @film_id = tickets['film_id'].to_i
+    @screening_id = tickets['screening_id'].to_i
   end
 
   def save
-    sql = "INSERT INTO tickets (customer_id, film_id) VALUES ($1, $2) RETURNING id"
-    values = [@customer_id, @film_id]
+    sql = "INSERT INTO tickets (customer_id, film_id, screening_id) VALUES ($1, $2, $3) RETURNING id"
+    values = [@customer_id, @film_id, @screening_id]
     ticket = SqlRunner.run(sql, values).first
     @id = ticket['id'].to_i
   end
@@ -25,8 +26,8 @@ class Ticket
   end
 
   def update
-    sql = "UPDATE tickets SET (customer_id, film_id) = ($1, $2) WHERE id = $3"
-    values = [@custmer_id, @film_id, @id]
+    sql = "UPDATE tickets SET (customer_id, film_id, screening_id) = ($1, $2, $3) WHERE id = $4"
+    values = [@custmer_id, @film_id, @screening_id, @id]
     SqlRunner.run(sql, values)
   end
 

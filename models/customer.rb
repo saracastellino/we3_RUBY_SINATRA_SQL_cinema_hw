@@ -44,10 +44,7 @@ class Customer
   end
 
   def number_of_films
-    sql = "SELECT films.* FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE customer_id = $1"
-    value = [@id]
-    films = SqlRunner.run(sql, value)
-    films_per_customer = films.map {|film| Film.new(film)}
+    films_per_customer = self.films
     return films_per_customer.length
   end
 

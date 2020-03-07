@@ -43,11 +43,45 @@ class Film
   end
 
   def number_of_customers
-    sql = "SELECT customers.* FROM customers INNER JOIN tickets ON customers.id = tickets.customer_id WHERE customer_id = $1"
-    value = [@id]
-    customers = SqlRunner.run(sql, value)
-    customers_per_film = customers.map {|customer| Customer.new(customer)}
+    customers_per_film = self.customers
     return customers_per_film.length
   end
+
+  def tickets_sold
+    sql = "SELECT * FROM tickets WHERE film_id = $1"
+    values = [@id]
+    tickets_sold = SqlRunner.run(sql, values)
+    tickets_sold.map {|ticket| Ticket.new(ticket)}
+  end
+
+  def screenings
+    sql = "SELECT * FROM screenings WHERE film_id = $1"
+    value = [@id]
+    screenings = SqlRunner.run(sql, value)
+    return screenings.map {|screening| Screening.new(screening)}
+  end
+ # for each film get the tickets sold for each screeining and p the screening with more tickets sold
+  def most_tickets_sold
+    sql =
+    "SELECT
+    film_id,
+    screening_id,
+    ROW_NUMBER() OVER (PARTITION BY film_id ORDER BY screening_id) AS frequency
+FROM
+    tickets
+ORDER BY
+    COUNT(*) OVER (PARTITION BY film_id) DESC,
+    film_id,
+    frequency DESC ; "
+    # "select distinct on (film_id) film_id, most_frequent_value from (
+    #   SELECT film_id, screening_id AS most_frequent_value, count(*) as _count
+    #   FROM tickets
+    #   GROUP BY film_id, screening_id) a
+    #   ORDER BY screeing_id, _count DESC LIMIT 1"
+    # sql = "SELECT screening_id, COUNT(screening_id) AS value_occurrence FROM tickets GROUP BY screening_id ORDER BY value_occurrence DESC LIMIT 1"
+    best_screening_time = SqlRunner.run(sql)
+    # return best_screening_time.map {|ticket| Ticket.new(ticket)}
+  end
+
 
 end
