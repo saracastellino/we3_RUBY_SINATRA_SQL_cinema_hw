@@ -65,21 +65,4 @@ class Customer
     return @funds -= total_price
   end
 
-  # movie_found = Casting.get_movie_by_id(@movie_id)
-  #   # binding.pry
-  #   if(movie_found.budget >= @fee)
-  #     movie_found.budget -= @fee
-  #   else
-  #     p "Sorry, out of budget"
-  #   end
-  #   movie1.update
-  #
-  #
-  #
-  #   def remaining_budget()
-  #     castings = self.castings()
-  #     casting_fees = castings.map{|casting| casting.fee}
-  #     combined_fees = casting_fees.sum
-  #     return @budget - combined_fees
-  #   end
 end
