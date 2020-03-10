@@ -2,6 +2,7 @@
 <% @film_list.each do |film| film.title %>
  <li>
    <h1><%= film.title.upcase%></h1>
+  <h2>£<%= film.price%></h2>
  </li>
 <% end %>
 </ul>

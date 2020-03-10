@@ -1,6 +1,6 @@
 body, html {
   height: 100%;
-  font-family: 'Courier', sans-serif;
+  font-family: 'Verdana', sans-serif;
 }
 
 ul {
@@ -11,6 +11,16 @@ ul {
     display: flex;
     justify-content: center;
     flex-flow: wrap;
+}
+
+h2 {
+  color: white;
+  font-size: 40px;
+  filter: drop-shadow(8px 8px 10px yellow);
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  flex-flow: wrap;
 }
 
 
