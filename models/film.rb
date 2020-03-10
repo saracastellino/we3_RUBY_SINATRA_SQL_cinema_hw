@@ -62,17 +62,19 @@ class Film
   end
  # for each film get the tickets sold for each screeining and p the screening with more tickets sold
   def most_tickets_sold
-    sql =
-    "SELECT
-    film_id,
-    screening_id,
-    ROW_NUMBER() OVER (PARTITION BY film_id ORDER BY screening_id) AS frequency
-FROM
-    tickets
-ORDER BY
-    COUNT(*) OVER (PARTITION BY film_id) DESC,
-    film_id,
-    frequency DESC ; "
+    sql = "SELECT Count(*) AS Distinct screening_id
+FROM tickets"
+#     "SELECT
+#     film_id,
+#     screening_id,
+#     ROW_NUMBER() OVER (PARTITION BY film_id ORDER BY screening_id) AS frequency
+# FROM
+#     tickets
+# ORDER BY
+#     COUNT(*) OVER (PARTITION BY film_id) DESC,
+#     film_id,
+#     frequency DESC "
+
     # "select distinct on (film_id) film_id, most_frequent_value from (
     #   SELECT film_id, screening_id AS most_frequent_value, count(*) as _count
     #   FROM tickets
@@ -80,7 +82,7 @@ ORDER BY
     #   ORDER BY screeing_id, _count DESC LIMIT 1"
     # sql = "SELECT screening_id, COUNT(screening_id) AS value_occurrence FROM tickets GROUP BY screening_id ORDER BY value_occurrence DESC LIMIT 1"
     best_screening_time = SqlRunner.run(sql)
-    # return best_screening_time.map {|ticket| Ticket.new(ticket)}
+    return best_screening_time.map {|ticket| Ticket.new(ticket)}
   end
 
 

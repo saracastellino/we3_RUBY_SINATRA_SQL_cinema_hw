@@ -1,0 +1,7 @@
+<ul>
+<% @film_list.each do |film| film.title %>
+ <li>
+   <h1><%= film.title.upcase%></h1>
+ </li>
+<% end %>
+</ul>
