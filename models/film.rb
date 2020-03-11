@@ -35,6 +35,15 @@ class Film
     SqlRunner.run(sql)
   end
 
+  def self.find(id)
+    sql = "SELECT * FROM films WHERE id = $1"
+    values = [@id]
+    film = SqlRunner.run(sql, values)[0]
+    film_hash = film[0]
+    found_film = Album.new(film_hash)
+    return found_film
+  end
+
   def customers
     sql = "SELECT customers.* FROM customers INNER JOIN tickets ON customers.id = tickets.customer_id WHERE film_id = $1"
     value = [@id]

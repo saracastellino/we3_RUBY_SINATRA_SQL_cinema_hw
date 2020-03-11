@@ -1,8 +1,12 @@
 <ul>
-<% @film_list.each do |film| film.title %>
+<% @film_list.each do |film| film %>
  <li>
    <h1><%= film.title.upcase%></h1>
   <h2>£<%= film.price%></h2>
  </li>
 <% end %>
 </ul>
+
+
+ <!-- <h1><a href="/film1">< %= film1.title.upcase% ></a></h1> %>
+ <!-- <h1><a href="/film2">< %= film2.title.upcase% ></a></h1> -->
